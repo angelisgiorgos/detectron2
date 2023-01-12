@@ -33,8 +33,10 @@ class DensePoseV1ConvXHead(nn.Module):
         # fmt: on
         pad_size = kernel_size // 2
         n_channels = input_channels
+        self.body_conv_fcn_layers = nn.ModuleList([])
         for i in range(self.n_stacked_convs):
             layer = Conv2d(n_channels, hidden_dim, kernel_size, stride=1, padding=pad_size)
+            self.body_conv_fcn_layers.append(layer)
             layer_name = self._get_layer_name(i)
             self.add_module(layer_name, layer)
             n_channels = hidden_dim
@@ -53,8 +55,9 @@ class DensePoseV1ConvXHead(nn.Module):
         x = features
         output = x
         for i in range(self.n_stacked_convs):
-            layer_name = self._get_layer_name(i)
-            x = getattr(self, layer_name)(x)
+            # layer_name = self._get_layer_name(i)
+            # x = getattr(self, layer_name)(x)
+            x = self.body_conv_fcn_layers(i)(x)
             x = F.relu(x)
             output = x
         return output
