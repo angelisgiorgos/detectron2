@@ -203,6 +203,7 @@ class ROIPooler(nn.Module):
         assert canonical_box_size > 0
         self.canonical_box_size = canonical_box_size
 
+    @torch.jit.script
     def forward(self, x: List[torch.Tensor], box_lists: List[Boxes]):
         """
         Args:

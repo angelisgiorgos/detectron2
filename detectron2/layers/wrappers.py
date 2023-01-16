@@ -95,6 +95,7 @@ class Conv2d(torch.nn.Conv2d):
         self.norm = norm
         self.activation = activation
 
+    @torch.jit.script
     def forward(self, x):
         # torchscript does not support SyncBatchNorm yet
         # https://github.com/pytorch/pytorch/issues/40507
