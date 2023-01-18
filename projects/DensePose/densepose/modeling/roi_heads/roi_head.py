@@ -66,7 +66,7 @@ class Decoder(nn.Module):
                     head_ops.append(
                         nn.Upsample(scale_factor=2, mode="bilinear", align_corners=False)
                     )
-            self.scale_heads.append(nn.Sequential(*head_ops))
+            self.scale_heads+= [nn.Sequential(*head_ops)]
             self.add_module(in_feature, self.scale_heads[-1])
         self.predictor = Conv2d(conv_dims, num_classes, kernel_size=1, stride=1, padding=0)
         weight_init.c2_msra_fill(self.predictor)
