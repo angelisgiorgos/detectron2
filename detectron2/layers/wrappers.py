@@ -118,8 +118,6 @@ class Conv2d(torch.nn.Conv2d):
         if not torch.jit.is_scripting():
             if self.activation is not None:
                 x = self.activation(x)
-        else:
-            x = self.activation(x)
         return x
 
 
