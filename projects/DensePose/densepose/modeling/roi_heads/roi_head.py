@@ -72,7 +72,7 @@ class Decoder(nn.Module):
         weight_init.c2_msra_fill(self.predictor)
 
     def forward(self, features: List[torch.Tensor]):
-        for i, _ in enumerate(self.in_features):
+        for i in range(len(self.in_features)):
             if i == 0:
                 x = self.scale_heads[i](features[i])
             else:
