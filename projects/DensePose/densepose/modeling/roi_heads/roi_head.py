@@ -43,7 +43,7 @@ class Decoder(nn.Module):
         norm                  = cfg.MODEL.ROI_DENSEPOSE_HEAD.DECODER_NORM
         # fmt: on
 
-        self.scale_heads = []
+        self.scale_heads = nn.ModuleList()
         for in_feature in self.in_features:
             head_ops = []
             head_length = max(
